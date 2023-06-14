@@ -3,7 +3,7 @@ const client_data = []
 
 venom
   .create({
-    session: 'my-sessions' //name of session
+    session: 'my-sessions2' //name of session
   })
   .then((client) => start(client))
   .catch((erro) => {
@@ -12,9 +12,10 @@ venom
 
 function start(client) {
   // push array clinet data 
-  client_data.push({client: client, session_name: 'my-sessions' })
-
+  console.log('readdy')
   client.onMessage((message) => {
+
+    
     if (message.body === 'Hi' && message.isGroupMsg === false) {
       client
         .sendText(message.from, 'Welcome Venom 🕷')

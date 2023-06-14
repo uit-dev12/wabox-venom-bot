@@ -1,5 +1,5 @@
 const express = require('express')
-const { createDevices } = require('./src/controller/device')
+// const { createDevices } = require('./src/controller/device')
 const { client_data } = require('./utils/waConnections/connections')
 const app = express()
 const port = 3000 
