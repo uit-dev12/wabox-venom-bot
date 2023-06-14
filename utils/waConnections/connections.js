@@ -32,18 +32,18 @@ function start(client) {
 
 
 
-const generetDevice  = sessions_name =>  { 
+// const generetDevice  = sessions_name =>  { 
 
-        venom
-        .create({
-        session: sessions_name //name of session
-        })
-        .then((client) => start(client))
-        .catch((erro) => {
-          console.log(erro);
-        });
+//         venom
+//         .create({
+//         session: sessions_name //name of session
+//         })
+//         .then((client) => start(client))
+//         .catch((erro) => {
+//           console.log(erro);
+//         });
 
-}
+// }
 
-exports.generetDevice = generetDevice
-exports.client_data = client_data
+// exports.generetDevice = generetDevice
+// exports.client_data = client_data

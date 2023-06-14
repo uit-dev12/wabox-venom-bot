@@ -3,7 +3,7 @@ const venom = require('venom-bot');
 venom
   .create(
     //session
-    'sessionName', //Pass the name of the client you want to start the bot
+     'sessionName', //Pass the name of the client you want to start the bo
     //catchQR
     (base64Qrimg, asciiQR, attempts, urlCode) => {
       console.log('Number of attempts to read the qrcode: ', attempts);
@@ -51,3 +51,25 @@ venom
   .catch((erro) => {
     console.log(erro);
   });
+
+
+
+function start(client) {
+    // push array clinet data 
+    console.log('readdy')
+    client.onMessage((message) => {
+
+        console.log('message bro')
+      if (message.body === 'Hi' && message.isGroupMsg === false) {
+        client
+          .sendText(message.from, 'Welcome Venom 🕷')
+          .then((result) => {
+            console.log('Result: ', result); //return object success
+          })
+          .catch((erro) => {
+            console.error('Error when sending: ', erro); //return object error
+          });
+      }
+    });
+  }
+  
