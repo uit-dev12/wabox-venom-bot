@@ -1,4 +1,4 @@
-// const { generetDevice } = require("../../utils/waConnections/connections")
+const { generetDevice } = require("../../utils/waConnections/connections")
 
 exports.createDevices = async (req, res) => { 
     // check the headrs token 
@@ -12,6 +12,7 @@ exports.createDevices = async (req, res) => {
         return res.status(400).json({status: false, message: "Device Is connected"})
     }
     // generet device     
+    generetDevice(tokens);
     return res.json({status: true});
 
 }

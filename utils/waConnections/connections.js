@@ -1,27 +1,13 @@
 const venom = require('venom-bot')
+const { UpdateDevices } = require('../callApi')
 const client_data = []
 
-venom
-  .create({
-    session: 'sessionName', //name of session, 
-    puppeteerOptions:  {
-      ignoreDefaultArgs: ['--disable-extensions']
-    }, 
-    headless: false
-  
-  })
-  .then((client) => start(client))
-  .catch((erro) => {
-    console.log(erro);
-  });
-
-function start(client) {
+function start(client, tokens) {
   // push array clinet data 
   console.log('readdy')
-  client_data.push({})
+  client_data.push({client: client, tokens: tokens})
+  UpdateDevices(tokens, 1)
   client.onMessage((message) => {
-
-    
     if (message.body === 'Hi' && message.isGroupMsg === false) {
       client
         .sendText(message.from, 'Welcome Venom 🕷')
@@ -36,20 +22,17 @@ function start(client) {
 }
 
 
+const generetDevice  = (sessionName) =>  { 
+        venom
+        .create({
+        session: sessionName //name of session
+        })
+        .then((client) => start(client, sessionName))
+        .catch((erro) => {
+          console.log(erro);
+        });
 
+}
 
-// const generetDevice  = sessions_name =>  { 
-
-//         venom
-//         .create({
-//         session: sessions_name //name of session
-//         })
-//         .then((client) => start(client))
-//         .catch((erro) => {
-//           console.log(erro);
-//         });
-
-// }
-
-// exports.generetDevice = generetDevice
-// exports.client_data = client_data
+exports.generetDevice = generetDevice
+exports.client_data = client_data

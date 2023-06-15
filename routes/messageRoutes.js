@@ -5,7 +5,7 @@ const { tokenMiddleware } = require('../src/middleware/tokenMiddleware')
 const { whiteListIP } = require('../src/middleware/whiteListIpMiddleware')
 const routes = express.Router()
 // set middleware
-routes.use(tokenMiddleware)
+// routes.use(tokenMiddleware)
 // white list ip
 // routes.use(whiteListIP)
 // file upload 
