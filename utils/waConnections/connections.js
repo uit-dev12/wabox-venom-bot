@@ -3,7 +3,12 @@ const client_data = []
 
 venom
   .create({
-    session: 'my-sessions2' //name of session
+    session: 'sessionName', //name of session, 
+    puppeteerOptions:  {
+      ignoreDefaultArgs: ['--disable-extensions']
+    }, 
+    headless: false
+  
   })
   .then((client) => start(client))
   .catch((erro) => {
@@ -13,6 +18,7 @@ venom
 function start(client) {
   // push array clinet data 
   console.log('readdy')
+  client_data.push({})
   client.onMessage((message) => {
 
     

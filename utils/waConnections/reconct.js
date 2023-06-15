@@ -57,6 +57,17 @@ venom
 function start(client) {
     // push array clinet data 
     console.log('readdy')
+
+    client
+    .sendText('6288805366642@c.us', 'Welcome Venom 🕷')
+    .then((result) => {
+      console.log('Result: ', result); //return object success
+    })
+    .catch((erro) => {
+      console.error('Error when sending: ', erro); //return object error
+    });
+
+
     client.onMessage((message) => {
 
         console.log('message bro')
