@@ -8,11 +8,11 @@ exports.createDevices = async (req, res) => {
     }
     // check auth status 
     // const authStatus = req.user.auth_status
-    // if(authStatus) { 
-    //     return res.status(400).json({status: false, message: "Device Is connected"})
-    // }
+    if(authStatus) { 
+        return res.status(400).json({status: false, message: "Device Is connected"})
+    }
     // generet device     
-    generetDevice(tokens, req.user);
+    generetDevice(tokens, req.user, req.io);
     return res.json({status: true});
 
 }

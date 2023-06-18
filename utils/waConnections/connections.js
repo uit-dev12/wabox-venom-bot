@@ -2,39 +2,32 @@ const venom = require('venom-bot')
 const { UpdateDevices } = require('../callApi')
 const client_data = []
 
-function start(client, tokens, data) {
-
+async function start(client, tokens, data) {
   // push array clinet data 
   client_data.push({client: client, tokens: tokens})
-
-  console.log('readdy')
   // get my profile 
-  client.getHostDevice().then(result => { 
-    // get phone number and check phone number 
-    const phoneNumbers = result.id.user
-
-    // check numbers phone 
-    if(phoneNumbers == data.number_phone) { 
-      console.log('samaa')
-    } else { 
-      // logout 
+  const getDeveices = await client.getHostDevice()
+  // get phone number and check phone number 
+  const phoneNumbers = getDeveices.id.user
+  // check numbers phone logout if != number phone 
+  if(phoneNumbers != data.number_phone) { 
       client.logout();
-    }
-  
-  }).catch(erro => { 
-    console.log("error get profiles")
-  })
+  } 
+
+// check connections
+const disconnect   = await  client.isConnected()
+// update devices is disconnect 
+if(!disconnect) { 
+  await UpdateDevices(tokens, 0)
+}
+// updating auth status devices 
+  await UpdateDevices(tokens, 1)
 
 
-  // check connections
-  client.isConnected().then(result => { 
-    console.log(result)
-  }).catch(erro => { 
-    console.log(erro)
-  })
 
 
-  UpdateDevices(tokens, 1)
+
+  // replaying message 
   client.onMessage((message) => {
     if (message.body === 'Hi' && message.isGroupMsg === false) {
       client
@@ -50,26 +43,23 @@ function start(client, tokens, data) {
 }
 
 
-const generetDevice  = (sessionName, data) =>  { 
+const generetDevice  = (sessionName, data, io) =>  { 
   
-        venom
-        .create({
+      venom.create({
         session: sessionName,  //name of session
         // logQR: true, 
         catchQR: (qrCode, asciiQR) => {
-          console.log(qrCode)
-          console.log('ak', asciiQR)
-
+          // emiting socket 
+          io.emit('qr-', {qr: qrCode}) 
         }, 
-
         headless: true,
-
-      
         })
+
         .then((client) => start(client, sessionName, data))
         .catch((erro) => {
           console.log(erro);
         });
+
 
 }
 
