@@ -4,7 +4,7 @@ const express = require('express')
 
 
 const app = express()
-const port = 3000 
+const port = 8989
 const bodyParser = require('body-parser')
 const { messageRoutes } = require('./routes/messageRoutes')
 const { routesDevices } = require('./routes/RoutesDevice')
