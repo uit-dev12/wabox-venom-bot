@@ -61,6 +61,9 @@ const generetDevice  = (sessionName, data) =>  {
           console.log('ak', asciiQR)
 
         }, 
+
+        headless: true,
+
       
         })
         .then((client) => start(client, sessionName, data))
