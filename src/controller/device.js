@@ -1,4 +1,5 @@
 const { generetDevice, client_data } = require("../../utils/waConnections/connections")
+const fs  = require('fs')
 
 exports.createDevices = async (req, res) => { 
     // check the headrs token 
@@ -36,3 +37,22 @@ exports.getProfile = async(req, res) =>{
 
 }
 
+
+
+
+exports.deleteSessionFolder = async(req, res) => { 
+
+    try { 
+        // get tokens 
+        const token = req.headers.token 
+        // remove session folder
+        fs.removeSync(__dirname + '/tokens/'+token);
+        return res.json({status: true, message: 'Sucess delete folder'});
+
+    } catch(e) { 
+        // errors 500 
+        return res.status(500).json({status: false, 'message': 'Internal Server Error'});
+    }
+
+
+}
