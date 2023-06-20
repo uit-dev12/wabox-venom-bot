@@ -2,28 +2,29 @@ const venom = require('venom-bot')
 const { UpdateDevices } = require('../callApi')
 const client_data = []
 
-async function start(client, tokens, data) {
+async function start(client, tokens, data, io) {
   // push array clinet data 
   client_data.push({client: client, tokens: tokens})
-  // get my profile 
-  const getDeveices = await client.getHostDevice()
+  // socket send 
+  io.emit('status-'+tokens, {code: 200});
+
   // get phone number and check phone number 
+  const getDeveices = await client.getHostDevice()
   const phoneNumbers = getDeveices.id.user
+  console.log(phoneNumbers);
+
   // check numbers phone logout if != number phone 
   if(phoneNumbers != data.number_phone) { 
-      client.logout();
+      await client.logout();
   } 
 
-// check connections
+// check connections and update devices is disconnect 
 const disconnect   = await  client.isConnected()
-// update devices is disconnect 
 if(!disconnect) { 
   await UpdateDevices(tokens, 0)
 }
-// updating auth status devices 
+// update devices connected 
   await UpdateDevices(tokens, 1)
-
-
 
 
 
@@ -49,13 +50,13 @@ const generetDevice  = (sessionName, data, io) =>  {
         session: sessionName,  //name of session
         // logQR: true, 
         catchQR: (qrCode, asciiQR) => {
-          // emiting socket 
-          io.emit('qr-', {qr: qrCode}) 
+          // emiting socket   
+          io.emit('qr-'+sessionName, {qr: qrCode}) 
         }, 
         headless: true,
         })
 
-        .then((client) => start(client, sessionName, data))
+        .then((client) => start(client, sessionName, data, io))
         .catch((erro) => {
           console.log(erro);
         });

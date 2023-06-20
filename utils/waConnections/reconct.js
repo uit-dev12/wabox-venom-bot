@@ -2,7 +2,7 @@ const { GetAllDevices, UpdateDevices } = require("../callApi")
 const venom = require('venom-bot')
 const { stars } = require("./connections")
 
-const deviceRecornect = async() =>  { 
+const deviceRecornect = async(io) =>  { 
 
   // get all devices 
   const devices = await GetAllDevices()
@@ -10,7 +10,7 @@ const deviceRecornect = async() =>  {
   devices.map( async elem => { 
     // updating data with auth status 1 
     if(elem.auth_status == 1) { 
-        await Recornect(elem.api_key, elem)
+        await Recornect(elem.api_key, elem, io)
     }
   })
 }
@@ -19,7 +19,7 @@ const deviceRecornect = async() =>  {
 
 
 
-const Recornect  = async(sessionName, data) => { 
+const Recornect  = async(sessionName, data, io) => { 
         venom
         .create({
         session: sessionName,  //name of session
@@ -32,7 +32,7 @@ const Recornect  = async(sessionName, data) => {
         }, 
 
         })
-        .then((client) => stars(client, sessionName,data ))
+        .then((client) => stars(client, sessionName,data, io ))
         .catch((erro) => {
           console.log(erro);
         });

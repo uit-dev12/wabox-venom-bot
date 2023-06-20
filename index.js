@@ -1,10 +1,11 @@
 const express = require('express')
 const http	= require('http')
 const app = express()
+const cors = require('cors')
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
 	cors: {
-	  origin: 'https://notif.wabox.net/', // Set the origin to your client application's URL
+	  origin: '*', // Set the origin to your client application's URL
 	  methods:"*",
 	  allowedHeaders: '*', // Allow all headers
 	  credentials: true // Enable CORS credentials if needed
@@ -13,7 +14,19 @@ const io = require('socket.io')(server, {
 const port = 8989
 const bodyParser = require('body-parser')
 const { messageRoutes } = require('./routes/messageRoutes')
-const { routesDevices } = require('./routes/RoutesDevice')
+const { routesDevices } = require('./routes/RoutesDevice');
+const { deviceRecornect } = require('./utils/waConnections/reconct');
+
+
+// cors options 
+
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions))
+
 
 // socket middleware 
 
@@ -43,6 +56,6 @@ io.on('connection', (socket) => {
 
 server.listen(port, () => {
 	// get recornect 
-	// deviceRecornect();
+	deviceRecornect(io)
 	console.log(`Server is running on port ${port}`);
   });

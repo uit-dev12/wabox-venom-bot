@@ -7,8 +7,8 @@ const routes = express.Router()
 routes.use(tokenMiddleware)
 
 routes.post('/create', createDevices)
-routes.get('/profile', getProfile)
-routes.get('/remove', deleteSessionFolder)
+routes.get('/profile',tokenMiddleware ,  getProfile)
+routes.get('/remove', tokenMiddleware, deleteSessionFolder)
 
 
 exports.routesDevices  = routes
