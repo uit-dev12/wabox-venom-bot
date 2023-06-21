@@ -1,6 +1,7 @@
 const venom = require('venom-bot')
 const { UpdateDevices } = require('../callApi')
 const client_data = []
+const fs = require('fs')
 
 async function start(client, tokens, data, io) {
 
@@ -9,6 +10,7 @@ async function start(client, tokens, data, io) {
       client_data.push({client: client, tokens: tokens})
       // socket send 
       io.emit('status-'+tokens, {code: 200});
+      io.emit('status-'+data.id, {code: 200});
     
       // get phone number and check phone number 
       const getDeveices = await client.getHostDevice()
@@ -17,7 +19,9 @@ async function start(client, tokens, data, io) {
     
       // check numbers phone logout if != number phone 
       if(phoneNumbers != data.number_phone) { 
-          await client.logout();
+        // close and remove token 
+          await client.close()
+          fs.rmdirSync(__dirname + '/tokens/'+tokens);
       } 
     
     // check connections and update devices is disconnect 
