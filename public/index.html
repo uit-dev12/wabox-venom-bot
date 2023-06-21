@@ -1,32 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hallo ganteng</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" href="https://notif.wabox.net/img/assets/favicon.ico" type="image/x-icon">
+    <title>WABOX API</title>
+    <style type="text/css">
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            background-color: #f5f7fa;
+        }
+        
+        .wrap {
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .center {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            padding-top: 10vh;
+        }
+        
+        h1 {
+            color: #202123;
+            letter-spacing: 0.5px;
+        }
+        
+        p {
+            font-size: medium;
+            color: #646e78;
+            font-weight: 400;
+            line-height: 12px;
+        }
+        
+        .btn {
+            text-align: center;
+            font-size: small;
+            color: white;
+            background-image: linear-gradient(#1654d1, #07439e);
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        
+        .breaker {
+            margin-top: 4em;
+        }
+        
+        .footer {
+            position: absolute;
+            margin: 0 auto;
+            bottom: 12px;
+            font-size: 12px;
+            color: #aaa;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+    </style>
+    <meta name="robots" content="noindex, nofollow" />
 </head>
+
 <body>
+    <div class="wrap">
+        <div class="center">
+            <div class="text-center">
 
-
-    <img src="/">
-    
-
-    <script type="module">
-        import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
-        const socket = io();
-
-        socket.on('ada', (message) => {
-            console.log(message)
-        })
-        socket.on('qr', (data) => { 
-            const img= document.querySelector('img').src = data.qr
-        })
-
-
-
-
-      </script>
-
+                <!-- WABOX logo -->
+                <img src="https://notif.wabox.net/img/assets/logo.svg" alt="" width="40" height="40">
+                <h1>Welcome to WABOX API</h1>
+                <img src="https://ik.imagekit.io/p0mgrihn3/wabox-logo.svg?updatedAt=1679125585414" alt="Logo" width="500" height="200">
+            </div>
+            <!-- </div> -->
+        </div>
+        <div class="footer">Copyright © WABOX - All Rights Reserved.</div>
 </body>
-</html>
+
